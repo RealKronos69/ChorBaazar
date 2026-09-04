@@ -1,4 +1,10 @@
+@import url('https://fonts.cdnfonts.com/css/housttik-personal-use');
 @import "tailwindcss";
+
+h5 {
+    font-family: 'Housttik Personal Use', sans-serif;
+}
+
 
 
 

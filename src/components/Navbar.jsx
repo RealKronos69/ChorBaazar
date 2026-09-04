@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom"
+import cartimg from "../assets/cart.png"
+
 const Navbar = () => {
     return (
-        <nav className='flex justify-between p-4 fixed bg-white w-full'>
-            <ul className='flex gap-10 *:cursor-pointer'>
+        <nav className='flex justify-between p-3 sticky top-0 bg-white w-full z-40'>
+            <ul className='flex gap-5 md:gap-10 *:cursor-pointer *:hover:text-slate-400 *:transition-all *:duration-300 *:font-light'>
                 <li><Link to='/'>Home</Link></li>
-                <li>Contact</li>
-                <li>Products</li>
-                <li>About</li>
+                <li><Link to='/contact'>Contact</Link></li>
+                <li><Link to='/products'>Products</Link></li>
+                <li><Link to='/about'>About</Link></li>
             </ul>
-            <div className='font-bold text-3xl'></div>
+            <div className='relative'>
+                <img className="w-8 h-8 cursor-pointer" src={cartimg} alt="" />
+                <h1 className="absolute right-0 bottom-0 text-red-500 font-bold cursor-pointer">0</h1>
+            </div>
         </nav>
     )
 }
