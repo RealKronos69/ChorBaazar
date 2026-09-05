@@ -8,7 +8,7 @@ const Home = () => {
             <section className="h-[90vh] grid grid-cols-1 lg:grid-cols-2 place-content-center p-3 gap-10">
                 <div>
                     <h1 className="text-7xl md:text-9xl text-black font-extrabold md:font-bold">CHOR BAAZAR</h1>
-                    <p className="font-light text-2xl pl-4">Deals So Good, They Feel Illegal!</p>
+                    <h5 className="font-light text-2xl pl-4">Deals So Good, They Feel Illegal!</h5>
 
                 </div>
                 <div className="flex justify-center items-center flex-col gap-5">

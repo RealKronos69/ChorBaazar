@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="h-fit p-5 bg-black z-30">
+        <footer className="h-fit p-5 bg-black">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 place-content-center">
                 <div className="">
                     <h1 className="text-white text-4xl font-bold">CHOR BAAZAR</h1>
