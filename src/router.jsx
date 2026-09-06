@@ -6,6 +6,8 @@ import Products from "./components/Products";
 import Overview from "./components/Overview";
 import Cart from "./components/Cart";
 import Contact from "./components/Contact";
+import Login from './components/Login'
+import Post from './components/Post'
 
 const router = createBrowserRouter([
     {
@@ -35,7 +37,15 @@ const router = createBrowserRouter([
             {
                 path:'user/cart',
                 element:<Cart/>
-            }
+            },
+            {
+                path:'login',
+                element:<Login/>
+            },
+            {
+                path:'post',
+                element:<Post/>
+            },
         ]
     },
 ])
