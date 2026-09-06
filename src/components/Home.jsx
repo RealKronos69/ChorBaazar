@@ -3,15 +3,6 @@ import Homeproducts from './Homeproducts'
 import Footer from './Footer'
 
 const Home = () => {
-    const [trending,settrending] = useState([])
-    useEffect(()=>{
-        const fetchtrending = async ()=>{
-            const res = await fetch(`${import.meta.env.VITE_BACKEND}/products/trending`)
-            const data = await res.json()
-            console.log(data)
-        }
-        fetchtrending()
-    },[])
 
 
     return (

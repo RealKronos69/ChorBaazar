@@ -6,11 +6,11 @@ import { Outlet } from 'react-router-dom'
 
 
 function App() {
-
+  const [cartcount,setcartcount] = useState(0)
   return (
     <section className=''>
-      <Navbar/>
-      <Outlet />
+      <Navbar cartcount={cartcount} setcartcount={setcartcount}/>
+      <Outlet context={[cartcount,setcartcount]} />
       <Footer/>
     </section>
   )

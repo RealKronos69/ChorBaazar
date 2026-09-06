@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import cartimg from "../assets/cart.png"
 import { useNavigate } from "react-router-dom"
 
-const Navbar = () => {
+const Navbar = ({cartcount,setcartcount}) => {
     const navigate = useNavigate()
     return (
         <nav className='flex justify-between p-3 sticky top-0 bg-white w-full z-40'>
@@ -14,7 +14,7 @@ const Navbar = () => {
             </ul>
             <div onClick={()=>{navigate('/user/cart')}} className='relative'>
                 <img className="w-8 h-8 cursor-pointer" src={cartimg} alt="" />
-                <h1 className="absolute right-0 bottom-0 text-red-500 font-bold cursor-pointer">0</h1>
+                <h1 className="absolute right-0 bottom-0 text-red-500 font-bold cursor-pointer translate-x-1">{cartcount}</h1>
             </div>
         </nav>
     )

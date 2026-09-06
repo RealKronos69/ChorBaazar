@@ -1,9 +1,9 @@
 const Post = ()=>{
     const post = {
         name : 'blue shirt',
-        price:20,
+        price:110,
         about: 'blue shirt with long slieves',
-        category:'clothes',
+        category:'electronics',
         subcategory:'shirt',
         attributes:{'gender' : 'male'}
     }

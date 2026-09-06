@@ -1,5 +1,16 @@
-const Homeproducts = ()=>{
-    return(
+import { useState,useEffect } from "react"
+
+const Homeproducts = () => {
+    const [trending, settrending] = useState([])
+    useEffect(() => {
+        const fetchtrending = async () => {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND}/products/trending`)
+            const data = await res.json()
+            console.log(data)
+        }
+        fetchtrending()
+    }, [])
+    return (
         <section className="mt-12 h-fit">
             <h5 className="text-2xl p-4">Trending Collections</h5>
             <div className="p-4 mb-10 flex gap-5">
@@ -69,7 +80,7 @@ const Homeproducts = ()=>{
                     <div className="absolute right-2 bottom-2">
                         <h1 className="text-lg font-extrabold text-blue-950">25$</h1>
                     </div>
-                    <a className="bg-gray-900/10 font-semibold backdrop-blur-2xl cursor-pointer opacity-0 text-white p-3 text-sm left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2 pl-5 pr-5 group-hover:opacity-100 transition-all duration-700">VIEW</a>
+                    <a href={`/overview?productId=${e.productId}`} className="bg-gray-900/10 font-semibold backdrop-blur-2xl cursor-pointer opacity-0 text-white p-3 text-sm left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2 pl-5 pr-5 group-hover:opacity-100 transition-all duration-700">VIEW</a>
                 </div>
             </div>
             <div className="flex justify-center mt-5 mb-5">
