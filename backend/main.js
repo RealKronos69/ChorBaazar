@@ -16,6 +16,7 @@ app.use(cors({
         'http://localhost:5173',
         'https://yourdomain.com'
     ],
+    credentials: true
 }))
 app.use(cookieParser())
 app.use(express.json())

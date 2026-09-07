@@ -17,9 +17,9 @@ const Overview = () => {
     }, [])
 
     const handleaddtocart = async () => {
-        if (cartcount === 5) {
-            return
-        }
+        // if (cartcount === 5) {
+        //     return
+        // }
         const res = await fetch(`${import.meta.env.VITE_BACKEND}/cart`, {
             method: "POST",
             headers: {
@@ -31,7 +31,10 @@ const Overview = () => {
             })
         })
         const data = await res.json()
-        setcartcount(cartcount + 1)
+        if(res.status===201){
+            setcartcount(cartcount + 1)
+        }
+        console.log(data)
     }
     return (
         <section className="h-[90vh] grid grid-cols-1 lg:grid-cols-2">

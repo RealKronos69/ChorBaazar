@@ -13,6 +13,7 @@ const Login = ()=>{
         e.preventDefault()
         const res = await fetch(`${import.meta.env.VITE_BACKEND}/user/login`,{
             method:'POST',
+            credentials:'include',
             headers:{
                 'Content-Type':'application/json'
             },
