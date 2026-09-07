@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import products from './routes/products.js'
 import cart from './routes/cart.js'
+import user from './routes/user.js'
 dotenv.config()
 
 
@@ -18,6 +19,7 @@ app.use(cors({
 }))
 app.use(cookieParser())
 app.use(express.json())
+app.use('/user', user)
 app.use('/products', products)
 app.use('/cart', cart)
 
