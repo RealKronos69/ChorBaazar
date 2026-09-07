@@ -3,6 +3,7 @@ import { useOutletContext } from 'react-router-dom'
 
 const Cart = () => {
     const [cartcount,setcartcount] = useOutletContext()
+    
     return (
         <section className="min-h-screen grid grid-cols-1 md:grid-cols-[70%_30%]">
             <div className='bg-gray-100 p-5'>

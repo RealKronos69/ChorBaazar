@@ -16,11 +16,22 @@ const Overview = () => {
         fetchoverview()
     }, [])
 
-    const handleaddtocart = ()=>{
-        if (cartcount===5) {
+    const handleaddtocart = async () => {
+        if (cartcount === 5) {
             return
         }
-        setcartcount(cartcount+1)
+        const res = await fetch(`${import.meta.env.VITE_BACKEND}/cart`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                productId
+            })
+        })
+        const data = await res.json()
+        setcartcount(cartcount + 1)
     }
     return (
         <section className="h-[90vh] grid grid-cols-1 lg:grid-cols-2">
@@ -37,7 +48,7 @@ const Overview = () => {
                 <a href={`/profile?user=${product[0]?.seller}`} className="text-sm text-blue-600 font-light cursor-pointer hover:text-blue-900">Visit Seller Profile</a>
                 <h1 className="text-3xl font-bold mt-5">{product[0]?.price}$</h1>
                 <h5 className="">category : {product[0]?.category} </h5>
-                <button onClick={()=>{handleaddtocart()}} className="p-3 pl-7 pr-7 w-fit border font-light mt-10 flex items-center gap-3 hover:scale-101 hover:bg-slate-900 hover:text-white group cursor-pointer transition-all duration-300">Add To Cart<img className='w-5 h-5 group-hover:invert' src={animatedcart} /></button>
+                <button onClick={() => { handleaddtocart() }} className="p-3 pl-7 pr-7 w-fit border font-light mt-10 flex items-center gap-3 hover:scale-101 hover:bg-slate-900 hover:text-white group cursor-pointer transition-all duration-300">Add To Cart<img className='w-5 h-5 group-hover:invert' src={animatedcart} /></button>
             </div>
         </section>
     )

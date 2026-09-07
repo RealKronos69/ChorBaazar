@@ -7,7 +7,6 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     try {
         const {category} = req.query
-        console.log(category)
         const products = category ? await db.find({category}) : await db.find()
         res.status(200).json(products)
     } catch (e) {
@@ -18,7 +17,6 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const post = req.body
-        console.log(post)
         await db.insertOne(post)
         res.status(200).json({ message: 'posted' })
     } catch (e) {
