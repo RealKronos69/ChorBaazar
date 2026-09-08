@@ -18,10 +18,31 @@ const Cart = () => {
 
         }
     }
-    const totalamount = ()=>cart.reduce((total,item)=>{return total+item.price},0)
+    const deleteitem = async (ID) => {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND}/cart`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({ _id: ID })
+            })
+            const data = await res.json()
+            if (res.ok) {
+                setcart(prevcart =>
+                    prevcart.filter(item => item._id !== ID)
+                )
+            }
+            console.log(data)
+        } catch (e) {
+
+        }
+    }
+    const totalamount = () => cart.reduce((total, item) => { return total + item.price }, 0)
     const deliverycharge = cart.length * 5
-    const coupon = ()=>{
-        
+    const coupon = () => {
+
     }
     console.log(cart)
     useEffect(() => {
@@ -36,7 +57,7 @@ const Cart = () => {
                         <h1 className='text-lg font-extrabold text-slate-800'>ITEMS {cart.length}</h1>
                     </div>
                     <div className='max-w-150 mt-5 p-5 mx-auto overflow-y-auto max-h-100 *:mt-5 scrollbar-thin scrollbar-track-slate-400 scrollbar-thumb-slate-300'>
-                        {cart.length===0 && <h1 className='font-light text-center text-2xl'>CART IS EMPTY</h1>}
+                        {cart.length === 0 && <h1 className='font-light text-center text-2xl'>CART IS EMPTY</h1>}
                         {cart?.map((e) => {
                             return (
                                 <div key={e.productId} className='flex justify-between items-center bg-gray-50 p-2 rounded-md'>
@@ -51,7 +72,7 @@ const Cart = () => {
                                         <h1 className='text-center text-sm font-light'>Amount</h1>
                                         <h1 className='text-lg font-bold'>{e.price}$</h1>
                                     </div>
-                                    <img className='w-5 h-5 cursor-pointer' src={animatedremove} alt="" />
+                                    <img onClick={() => { deleteitem(e._id) }} className=' w-5 h-5 cursor-pointer' src={animatedremove} alt="" />
                                 </div>
                             )
                         })}
@@ -76,7 +97,7 @@ const Cart = () => {
                     </div>
                     <div className='flex justify-between text-sm mt-2'>
                         <h1 className='font-light'>Final Amount</h1>
-                        <h1 className='font-semibold text-red-400'>{totalamount()+deliverycharge}$</h1>
+                        <h1 className='font-semibold text-red-400'>{totalamount() + deliverycharge}$</h1>
                     </div>
                 </div>
                 <div>

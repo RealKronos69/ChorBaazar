@@ -12,46 +12,46 @@ import Post from './components/Post'
 
 const router = createBrowserRouter([
     {
-        path:'/',
-        element:<App/>,
-        children:[
+        path: '/',
+        element: <App />,
+        children: [
             {
-                index:true,
-                element:<Home/>
+                index: true,
+                element: <Home />
             },
             {
-                path:'about',
-                element:<About/>
+                path: 'about',
+                element: <About />
             },
             {
-                path:'contact',
-                element:<Contact/>
+                path: 'contact',
+                element: <Contact />
             },
             {
-                path:'products',
-                element:<Products/>
+                path: 'products',
+                element: <Products />
             },
             {
-                path:'overview',
-                element:<Overview/>
+                path: 'overview',
+                element: <Overview />
             },
             {
-                path:'user/cart',
-                element:<Cart/>
+                path: 'user/cart',
+                element: <Cart />
             },
             {
-                path:'login',
-                element:<Login/>
+                path: 'post',
+                element: <Post />
             },
-            {
-                path:'signup',
-                element:<Signup/>
-            },
-            {
-                path:'post',
-                element:<Post/>
-            },
-        ]
+        ],
+    },
+    {
+        path: '/login',
+        element: <Login />
+    },
+    {
+        path: '/signup',
+        element: <Signup />
     },
 ])
 

@@ -6,24 +6,24 @@ import userdb from '../schema/userschema.js'
 const router = express.Router()
 
 
-router.get('/',auth,async (req,res)=>{
+router.get('/', auth, async (req, res) => {
     try {
         const user = req.user.userId
-        const cart = await cartdb.findOne({userId:user}).populate('items')
+        const cart = await cartdb.findOne({ userId: user }).populate('items')
         res.status(200).json(cart)
     } catch (e) {
         console.log(e)
-        res.status(500).json({message:'something went wrong'})
+        res.status(500).json({ message: 'something went wrong' })
     }
 })
 
 router.post('/', auth, async (req, res) => {
     try {
         const { productId } = req.body
-        
+
         const exists = await cartdb.findOne({
-            userId:req.user.userId,
-            items:productId
+            userId: req.user.userId,
+            items: productId
         })
 
         if (exists) {
@@ -42,6 +42,20 @@ router.post('/', auth, async (req, res) => {
         res.status(201).json({ message: 'added to cart!', cartitem })
     } catch (e) {
         res.status(500).json({ message: 'cant add' })
+    }
+})
+
+router.delete('/', auth, async (req, res) => {
+    try {
+        const { _id } = req.body
+        await cartdb.findOneAndUpdate(
+            { userId: req.user.userId },
+            { $pull: { items: _id } },
+            { new: true }
+        )
+        res.status(200).json({message:'item deleted from cart!'})
+    } catch (e) {
+        res.status(500).json({ message: 'something went wrong' })
     }
 })
 
