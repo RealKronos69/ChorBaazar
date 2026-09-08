@@ -5,6 +5,18 @@ import userdb from '../schema/userschema.js'
 
 const router = express.Router()
 
+
+router.get('/',auth,async (req,res)=>{
+    try {
+        const user = req.user.userId
+        const cart = await cartdb.findOne({userId:user}).populate('items')
+        res.status(200).json(cart)
+    } catch (e) {
+        console.log(e)
+        res.status(500).json({message:'something went wrong'})
+    }
+})
+
 router.post('/', auth, async (req, res) => {
     try {
         const { productId } = req.body

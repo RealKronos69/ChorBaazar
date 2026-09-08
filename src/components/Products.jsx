@@ -64,7 +64,7 @@ const Products = () => {
                                 <div className="absolute right-2 bottom-2">
                                     <h1 className="text-lg font-extrabold text-blue-950">{e.price}$</h1>
                                 </div>
-                                <a href={`/overview?productId=${e.productId}`} className="bg-gray-900/10 font-semibold backdrop-blur-2xl cursor-pointer opacity-0 text-white p-3 text-sm left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2 pl-5 pr-5 group-hover:opacity-100 transition-all duration-700">VIEW</a>
+                                <a href={`/overview?productId=${e._id}`} className="bg-gray-900/10 font-semibold backdrop-blur-2xl cursor-pointer opacity-0 text-white p-3 text-sm left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2 pl-5 pr-5 group-hover:opacity-100 transition-all duration-700">VIEW</a>
                             </div>
                         )
                     })}

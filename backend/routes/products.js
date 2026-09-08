@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 router.get('/overview',async (req,res)=>{
     try {
         const {productId} = req.query
-        const product = await db.find({productId})
+        const product = await db.find({_id:productId})
         res.status(200).json(product)
     } catch (e) {
         res.status(500).json({message:'something went wrong'})
