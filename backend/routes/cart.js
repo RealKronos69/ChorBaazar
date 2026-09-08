@@ -2,7 +2,7 @@ import express from "express";
 import cartdb from "../schema/cartschema.js"
 import auth from '../middleware/auth.js'
 import userdb from '../schema/userschema.js'
-
+import coupondb from '../schema/couponschema.js'
 const router = express.Router()
 
 
@@ -53,9 +53,22 @@ router.delete('/', auth, async (req, res) => {
             { $pull: { items: _id } },
             { new: true }
         )
-        res.status(200).json({message:'item deleted from cart!'})
+        res.status(200).json({ message: 'item deleted from cart!' })
     } catch (e) {
         res.status(500).json({ message: 'something went wrong' })
+    }
+})
+
+router.post('/coupon', async (req, res) => {
+    try {
+        const {couponcode} = req.body
+        const valid = await coupondb.findOne({couponcode})
+        if(!valid){
+            return res.status(400).json({message:'invalid coupon!'})
+        }
+        res.status(200).json({message:'coupon applied!',valid})
+    } catch (e) {
+        res.status(500).json({message:'something went wrong'})
     }
 })
 

@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 import animatedremove from '../assets/animated_remove.apng'
+// import validateimg from '../assets/couponvalidate.apng'
 import { useOutletContext } from 'react-router-dom'
 
 const Cart = () => {
-    const [cartcount, setcartcount] = useOutletContext()
+    // const [cartcount, setcartcount] = useOutletContext()
     const [cart, setcart] = useState([])
+    const [couponcode,setcouponcode] = useState('')
+    const [discount,setdiscount] = useState(0)
+    
     const fetchcart = async () => {
         try {
             const res = await fetch(`${import.meta.env.VITE_BACKEND}/cart`, {
@@ -15,7 +19,25 @@ const Cart = () => {
                 setcart(data.items)
             }
         } catch (e) {
-
+            
+        }
+    }
+    const validatecoupon = async () => {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND}/cart/coupon`,{
+                method:'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({ couponcode })
+            })
+            const data = await res.json()
+            if(res.ok){
+                setdiscount(data.valid.couponamount)
+            }
+        } catch (e) {
+            
         }
     }
     const deleteitem = async (ID) => {
@@ -34,17 +56,27 @@ const Cart = () => {
                     prevcart.filter(item => item._id !== ID)
                 )
             }
-            console.log(data)
+            // console.log(data)
         } catch (e) {
 
         }
     }
     const totalamount = () => cart.reduce((total, item) => { return total + item.price }, 0)
     const deliverycharge = cart.length * 5
-    const coupon = () => {
-
+    const finalamount = totalamount() + deliverycharge - discount
+    const handlecoupon=(e)=>{
+        setcouponcode(e.target.value)
     }
-    console.log(cart)
+    console.log(couponcode)
+    // console.log(cart)
+    useEffect(()=>{
+        const timer = setTimeout(() => {
+            console.log('validating coupon')
+            validatecoupon()
+        }, 900)
+        return ()=>clearTimeout(timer)
+    },[couponcode])
+
     useEffect(() => {
         fetchcart()
     }, [])
@@ -93,15 +125,15 @@ const Cart = () => {
                     </div>
                     <div className='flex justify-between text-sm mt-2'>
                         <h1 className='font-light'>Coupon</h1>
-                        <h1 className='font-semibold text-red-400'>-10$</h1>
+                        <h1 className='font-semibold text-red-400'>{discount}$</h1>
                     </div>
                     <div className='flex justify-between text-sm mt-2'>
                         <h1 className='font-light'>Final Amount</h1>
-                        <h1 className='font-semibold text-red-400'>{totalamount() + deliverycharge}$</h1>
+                        <h1 className='font-semibold text-red-400'>{finalamount}$</h1>
                     </div>
                 </div>
-                <div>
-                    <input placeholder='coupon code?' className='h-10 w-1/2 bg-white focus:outline-0 p-3 text-xs font-light mt-3' type="text" />
+                <div className=''>
+                    <input onChange={handlecoupon} placeholder='coupon code?' className='bg-slate-100 h-10 w-1/2 focus:outline-0 p-3 text-xs font-mono font-bold mt-3' type="text" />
                 </div>
                 <div className='mt-5 flex gap-5'>
                     <div className='w-40 h-14 bg-blue-300'></div>
