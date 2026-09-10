@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Post from './components/Post'
+import Navbar from './components/Navbar'
 
 const router = createBrowserRouter([
     {
@@ -28,10 +29,6 @@ const router = createBrowserRouter([
                 element: <Contact />
             },
             {
-                path: 'products',
-                element: <Products />
-            },
-            {
                 path: 'overview',
                 element: <Overview />
             },
@@ -44,6 +41,10 @@ const router = createBrowserRouter([
                 element: <Post />
             },
         ],
+    },
+    {
+        path: '/products',
+        element: <> <Navbar/> <Products /> </>
     },
     {
         path: '/login',

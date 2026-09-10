@@ -1,11 +1,11 @@
 const Post = ()=>{
     const post = {
-        name : 'blue shirt',
+        name : 'yellow shirt',
         price:110,
         about: 'blue shirt with long slieves',
-        category:'electronics',
+        category:'clothes',
         subcategory:'shirt',
-        attributes:{'gender' : 'male'}
+        attributes:{'gender' : 'women'}
     }
 
 const handlepost = async ()=>{
