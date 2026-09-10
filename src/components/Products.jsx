@@ -3,7 +3,8 @@ import { useState, useEffect } from "react"
 const Products = () => {
     const [products, setproducts] = useState([])
     const [category, setcategory] = useState('')
-    const [subcategory, setsubcategory] = useState()
+    const [attribute, setattribute] = useState([])
+    const [subcategory,setsubcategory] = useState([])
 
     const fetchproducts = async () => {
         const url = category === "" ? `${import.meta.env.VITE_BACKEND}/products` : `${import.meta.env.VITE_BACKEND}/products?category=${category}`
@@ -18,11 +19,20 @@ const Products = () => {
 
     const handlechange = (e) => {
         setcategory(e.target.value)
-        const fetchcategory = async () => {
-
-        }
     }
-    console.log(category)
+    const handleattribute = (e) => {
+        const { id, name, checked } = e.target
+        if (checked) {
+            setattribute(prev => ({ ...prev, [name]: id }))
+        }
+
+    }
+    const filterproducts = products.filter(product => {
+        return Object.entries(attribute).every(([key, value]) => {
+            return product.attributes?.[key] === value
+        })
+    })
+    console.log(attribute)
 
     return (
         <section className="h-fit">
@@ -41,15 +51,15 @@ const Products = () => {
                 {category === "clothes" && (<div className="transition-all duration-500 mt-3 p-4 border border-white w-fit rounded-md">
                     <h5 className="text-white mb-2">clothes filter</h5>
                     <div className="flex gap-2">
-                        <input className="focus:outline-0" type="checkbox" id="men" />
+                        <input name='gender' onChange={handleattribute} id="men" className="focus:outline-0" type="radio" />
                         <label className="text-white font-light" htmlFor="men">Men</label>
                     </div>
                     <div className="flex gap-2">
-                        <input className="focus:outline-0" type="checkbox" id="women" />
+                        <input name='gender' onChange={handleattribute} id="women" className="focus:outline-0" type="radio" />
                         <label className="text-white font-light" htmlFor="women">Women</label>
                     </div>
                     <div className="flex gap-2">
-                        <input className="focus:outline-0" type="checkbox" id="kid" />
+                        <input name='gender' onChange={handleattribute} id="kid" className="focus:outline-0" type="radio" />
                         <label className="text-white font-light" htmlFor="kid">Kid</label>
                     </div>
                 </div>)}
@@ -57,7 +67,7 @@ const Products = () => {
             <section className="h-fit">
                 <h5 className="text-center text-3xl p-5">{category}</h5>
                 <div className="flex gap-10 flex-wrap p-5 justify-center">
-                    {products.map((e) => {
+                    {filterproducts.map((e) => {
                         return (
                             <div key={e.productId} className="w-65 h-80 bg-white relative group overflow-hidden">
                                 <img className="w-full h-full object-cover group-hover:blur-xs bg-black group-hover:scale-110 transition-all duration-500" src={e.image} alt="" />
